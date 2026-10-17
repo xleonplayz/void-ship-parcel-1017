@@ -1,0 +1,10 @@
+[apps."apps/desk"]
+ports = [{ port = 3230, proto = "http" }]
+
+[apps."services/tariff"]
+ports = [{ port = 8231, proto = "http" }]
+
+[[edges]]
+from = "apps/desk"
+to = "services/tariff"
+port = 8231
