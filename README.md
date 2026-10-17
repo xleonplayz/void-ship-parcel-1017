@@ -14,6 +14,11 @@ CSV `de,1200,2` plus `eu,500,1` costs 2927 cents. Weights 1..30000 grams,
 quantities 1..100, at most 100 batch rows. Invalid data is rejected.
 Optional SURCHARGE_CENTS is a synthetic public tariff configuration, not a secret.
 
+Release 2 changes the German base tariff from 490 to 540 cents. Default example:
+1785 cents per DE quote and 3046 cents for the two CSV rows. With the public
+SURCHARGE_CENTS=25 setting, expected totals are 1845 and 3136 cents. Rolling back
+to release 1 while retaining that setting yields 1726 and 3017 cents.
+
 Local control, no Cargo dependencies/build:
 
     mkdir -p .local

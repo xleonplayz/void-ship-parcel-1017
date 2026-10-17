@@ -1,7 +1,7 @@
 use std::io::{self, Read, Write};
 
-const RELEASE: u64 = 1;
-const BASE_DE: u64 = 490;
+const RELEASE: u64 = 2;
+const BASE_DE: u64 = 540;
 
 fn quote(zone: &str, grams: &str, quantity: &str) -> Result<(u64, u64, u64), &'static str> {
     let base = match zone { "de" => BASE_DE, "eu" => 990, _ => return Err("unsupported zone") };
