@@ -1,6 +1,6 @@
 use std::io::{self, Read, Write};
 
-const RELEASE: u64 = 2;
+const RELEASE: u64 = 3;
 const BASE_DE: u64 = 540;
 
 fn quote(zone: &str, grams: &str, quantity: &str) -> Result<(u64, u64, u64), &'static str> {
@@ -9,8 +9,10 @@ fn quote(zone: &str, grams: &str, quantity: &str) -> Result<(u64, u64, u64), &'s
     let quantity = quantity.parse::<u64>().map_err(|_| "invalid quantity")?;
     if grams == 0 || grams > 30000 { return Err("weight must be 1..30000 grams"); }
     if quantity == 0 || quantity > 100 { return Err("quantity must be 1..100"); }
-    let surcharge = std::env::var("SURCHARGE_CENTS").unwrap_or_else(|_| "0".into())
-        .parse::<u64>().map_err(|_| "invalid surcharge configuration")?;
+    let surcharge_text = std::env::var("SURCHARGE_CENTS").unwrap_or_default();
+    let surcharge = if surcharge_text.trim().is_empty() { 0 } else {
+        surcharge_text.trim().parse::<u64>().map_err(|_| "invalid surcharge configuration")?
+    };
     if surcharge > 10000 { return Err("surcharge configuration too large"); }
     let net = (base + ((grams + 499) / 500) * 70 + surcharge) * quantity;
     let tax = (net * 19 + 50) / 100;

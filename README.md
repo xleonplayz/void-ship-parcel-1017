@@ -19,6 +19,12 @@ Release 2 changes the German base tariff from 490 to 540 cents. Default example:
 SURCHARGE_CENTS=25 setting, expected totals are 1845 and 3136 cents. Rolling back
 to release 1 while retaining that setting yields 1726 and 3017 cents.
 
+Release 3 retains release 2 rates and accepts an absent or empty optional surcharge
+as zero. Dev source detection materializes referenced environment variables as
+empty strings; that differs from leaving the variable absent on a local shell.
+Nonempty malformed values remain explicit configuration errors. Set the public
+SURCHARGE_CENTS=25 using `lly env` to test the configured case.
+
 Local control, no Cargo dependencies/build:
 
     mkdir -p .local
